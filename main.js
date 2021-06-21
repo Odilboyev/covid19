@@ -1,6 +1,3 @@
-/*jshint esversion: 6 */
-/*jshint -W033 */
-// jshint esversion: 8
 const input = document.getElementById('country');
       form = document.getElementById('form')
       display = document.getElementById('display')
@@ -53,24 +50,5 @@ form.addEventListener('submit', (e) => {
                 <h5 id="deaths">${response[1]}</h5>
             </div>
             </div>`}
-            // display.appendChild(result)
         }, 2000);
-    
-
 })
-
-
-
-
-
-/**
- * []
-0:
-confirmed: {value: 33536904, detail: "https://covid19.mathdro.id/api/countries/usa/confirmed"}
-deaths: {value: 601721, detail: "https://covid19.mathdro.id/api/countries/usa/deaths"}
-lastUpdate: "2021-06-20T01:21:52.000Z"
-recovered: {value: 0, detail: "https://covid19.mathdro.id/api/countries/usa/recovered"}
-__proto__: Object
-length: 1
-__proto__: Array(0)
- */
