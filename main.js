@@ -1,37 +1,29 @@
-const input = document.getElementById('country');
-      form = document.getElementById('form')
-      display = document.getElementById('display')
+const btn = document.getElementById('submit')
 
 // get covid data from api
-fetchData = (value) => {
-    let resp = []
-    fetch(`https://covid19.mathdro.id/api/countries/${value}`)
-        .then(res => res.json())
-        .then(data => {
-            resp.push(data.confirmed.value)
-            resp.push(data.deaths.value)
-            resp.push(data.recovered.value)
-        })
-        .catch(err => console.log(err))
-
-    return resp
+const fetchData = async (value) => {
+    let response = await fetch(`https://covid19.mathdro.id/api/countries/${value}`)
+    let json = await response.json()
+    let data = []
+    data.push(json.confirmed.value)
+    data.push(json.deaths.value)
+    data.push(json.recovered.value)
+    return data
 }
 
 // get value for find country and display results
-form.addEventListener('submit', (e) => {
-    e.preventDefault()
+btn.onclick = async () => {
+    let input = document.getElementById('country').value;
     display.innerHTML = '<div class="lds-circle"><div></div></div>'
-    let value = input.value;
-    let response = fetchData(value)
-    console.log(response)
+    let response = await fetchData(input)
 
     
-    setTimeout(() => {
-        if(response.length === 0 ){
-                display.innerHTML = `<h2 class="text-center">Please, Enter the state correctly</h2>`
-            } 
-        else{
-            display.innerHTML = `<h2 class="text-center">Covid-19 data</h2>
+    if (response.length === 0) {
+        display.innerHTML = `<h2 class="text-center">Please, Enter the state correctly</h2>`
+    }
+
+    else {
+        display.innerHTML = `<h2 class="text-center">Covid-19 data</h2>
             <div class="row shadow rounded my-5">
             <div class="col p-3 border  d-flex justify-content-center align-items-center flex-column">
                 <h4 class="text-warning">Confirmed</h4>
@@ -49,6 +41,7 @@ form.addEventListener('submit', (e) => {
     
                 <h5 id="deaths">${response[1]}</h5>
             </div>
-            </div>`}
-        }, 2000);
-})
+            </div>`
+    }
+
+}
